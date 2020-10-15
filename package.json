@@ -1,9 +1,8 @@
 {
   "name": "profile-boot",
-  "version": "0.0.2",
+  "version": "0.0.8",
   "keywords": [
     "profile",
- 
     "ayotycoon"
   ],
   "description": "enables profiles in node js",
@@ -11,8 +10,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index",
-      "build": "tsc"
+    "build": "tsc"
   },
   "author": "ayotycoon",
-  "license": "MIT"
+  "license": "MIT",
+  "bin": {
+    "profile-boot": "./index.js"
+  }
 }

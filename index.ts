@@ -1,21 +1,30 @@
+#!/usr/bin/env node
 import * as path from 'path';
 import { readFileSync, writeFileSync } from 'fs';
 
 
 import scan from './scan';
-const logger = (text) => {
-    console.log(text)
-}
+
 let optionsStr = '';
 
 try {
-    optionsStr = readFileSync(path.resolve(__dirname, '../profiler.json'), { encoding: 'utf-8' })
+    optionsStr = readFileSync(path.resolve(__dirname, '../../profiler.json'), { encoding: 'utf-8' })
+
 } catch (error) {
 
 }
 
 
 const options = optionsStr ? JSON.parse(optionsStr) : {}
+
+
+
+export const logger = (text) => {
+    if (!options.showLogs) {
+        return;
+    }
+    console.log(text)
+}
 // get command line args
 const args = process.argv.splice(2);
 args.forEach((str, i) => {
@@ -32,7 +41,7 @@ export let activeProfile: any = {}
 function writer(str) {
 
     if (options.writeTo) {
-        const fullPath = path.resolve(__dirname, '../', options.writeTo)
+        const fullPath = path.resolve(__dirname, '../../', options.writeTo)
         try {
 
 
@@ -71,19 +80,26 @@ export function init(_profile?) {
     ran = true;
     const profiles = scan();
     const profile = profiles[_profile] || {};
+    activeProfile = profile.obj
 
     logger(`active profile = ${profile.name}`)
-    logger(activeProfile)
+    logger({ activeProfile})
     writer(profile.str);
 
 }
+export function getActiveProfile(){
+return activeProfile;
+}
 
+// if function hasnt ran and there is a profile, run
 if(!ran && options.profile){
     init(options.profile)
 }
 
 export default {
-    init, activeProfile
+    init,
+    activeProfile,
+    getActiveProfile
 }
 
 

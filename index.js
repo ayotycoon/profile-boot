@@ -1,18 +1,22 @@
+#!/usr/bin/env node
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var path = require("path");
 var fs_1 = require("fs");
 var scan_1 = require("./scan");
-var logger = function (text) {
-    console.log(text);
-};
 var optionsStr = '';
 try {
-    optionsStr = fs_1.readFileSync(path.resolve(__dirname, '../profiler.json'), { encoding: 'utf-8' });
+    optionsStr = fs_1.readFileSync(path.resolve(__dirname, '../../profiler.json'), { encoding: 'utf-8' });
 }
 catch (error) {
 }
 var options = optionsStr ? JSON.parse(optionsStr) : {};
+exports.logger = function (text) {
+    if (!options.showLogs) {
+        return;
+    }
+    console.log(text);
+};
 // get command line args
 var args = process.argv.splice(2);
 args.forEach(function (str, i) {
@@ -23,7 +27,7 @@ args.forEach(function (str, i) {
 exports.activeProfile = {};
 function writer(str) {
     if (options.writeTo) {
-        var fullPath = path.resolve(__dirname, '../', options.writeTo);
+        var fullPath = path.resolve(__dirname, '../../', options.writeTo);
         try {
             var l = options.writeTo.split('.');
             var ext = l[l.length - 1];
@@ -40,7 +44,7 @@ function writer(str) {
             fs_1.writeFileSync(fullPath, toWrite);
         }
         catch (error) {
-            logger('could not write to ' + fullPath);
+            exports.logger('could not write to ' + fullPath);
         }
     }
 }
@@ -49,15 +53,23 @@ function init(_profile) {
     ran = true;
     var profiles = scan_1.default();
     var profile = profiles[_profile] || {};
-    logger("active profile = " + profile.name);
-    logger(exports.activeProfile);
+    exports.activeProfile = profile.obj;
+    exports.logger("active profile = " + profile.name);
+    exports.logger({ activeProfile: exports.activeProfile });
     writer(profile.str);
 }
 exports.init = init;
+function getActiveProfile() {
+    return exports.activeProfile;
+}
+exports.getActiveProfile = getActiveProfile;
+// if function hasnt ran and there is a profile, run
 if (!ran && options.profile) {
     init(options.profile);
 }
 exports.default = {
-    init: init, activeProfile: exports.activeProfile
+    init: init,
+    activeProfile: exports.activeProfile,
+    getActiveProfile: getActiveProfile
 };
 // scan profiles folder to get all available profiles

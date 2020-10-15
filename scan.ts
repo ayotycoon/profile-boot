@@ -1,14 +1,15 @@
 import { copyFileSync, readFileSync, readdir, mkdir, mkdirSync, lstatSync, writeFileSync, rmdir, rmdirSync, readdirSync } from 'fs';
 import * as path from 'path';
 import { execSync } from 'child_process';
+import { logger } from '.';
 
 const modifyAble = { 'json': true }
-const scan =  (dir = path.resolve(__dirname, '../profiles')) => {
+const scan =  (dir = path.resolve(__dirname, '../../profiles')) => {
 
     let base;
 
 
-    console.log(`scanning directory ${dir}`)
+    logger(`scanning directory ${dir}`)
     const profiles = {
 
     }
@@ -19,7 +20,7 @@ const scan =  (dir = path.resolve(__dirname, '../profiles')) => {
 
 
     _dirs.forEach(_dir => {
-        console.log({_dir})
+        logger({_dir})
         const _path = path.resolve(dir, _dir);;
         const isDir = lstatSync(_path).isDirectory()
         if (!isDir) {

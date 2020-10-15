@@ -2,15 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = require("fs");
 var path = require("path");
+var _1 = require(".");
 var modifyAble = { 'json': true };
 var scan = function (dir) {
-    if (dir === void 0) { dir = path.resolve(__dirname, '../profiles'); }
+    if (dir === void 0) { dir = path.resolve(__dirname, '../../profiles'); }
     var base;
-    console.log("scanning directory " + dir);
+    _1.logger("scanning directory " + dir);
     var profiles = {};
     var _dirs = fs_1.readdirSync(dir);
     _dirs.forEach(function (_dir) {
-        console.log({ _dir: _dir });
+        _1.logger({ _dir: _dir });
         var _path = path.resolve(dir, _dir);
         ;
         var isDir = fs_1.lstatSync(_path).isDirectory();
