@@ -1,9 +1,6 @@
 import logger from './modules/logger'
-
-import * as profileJson from './profile.json';
-
+const profileJson = require('./profile.json');
 export function getActiveProfile() {
-
     return profileJson;
 }
 const p = getActiveProfile();

@@ -1,6 +1,5 @@
 import { readFileSync} from 'fs';
 import * as  path from 'path';
-import logger from './logger';
 
 
 let optionsStr = '';
@@ -9,7 +8,7 @@ try {
     optionsStr = readFileSync(profileBootJsonPath, { encoding: 'utf-8' })
 
 } catch (error) {
-    logger(`Could not find profile-boot.json in your project path ${profileBootJsonPath} -- Using sensible defaults`,  true)
+    console.log(`Could not find profile-boot.json in your project path ${profileBootJsonPath} -- Using sensible defaults`)
 }
 
 
