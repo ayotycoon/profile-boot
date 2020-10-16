@@ -3,6 +3,8 @@
   "version": "0.2.4",
   "keywords": [
     "profile",
+    "node-profile",
+    "profile-boot",
     "ayotycoon"
   ],
   "description": "Enables profiles in node js environments and on the browser when bundled with babel or typescript compiler",
