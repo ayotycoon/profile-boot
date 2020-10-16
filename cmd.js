@@ -16,11 +16,6 @@ var logger_1 = require("./modules/logger");
 var scan_1 = require("./modules/scan");
 var writer_1 = require("./modules/writer");
 var options_1 = require("./modules/options");
-// get command line args
-var args = process.argv.splice(2);
-options_1.initializeOptions(args);
-var options = options_1.getOptions();
-var profiles = scan_1.default();
 function profileSelector(profiles, profile) {
     var _a;
     var hash = (_a = {}, _a[profile] = true, _a);
@@ -50,6 +45,11 @@ function profileSelector(profiles, profile) {
     returnAble.str = JSON.stringify(final);
     return returnAble;
 }
+// get command line args
+var args = process.argv.splice(2);
+options_1.initializeOptions(args);
+var options = options_1.getOptions();
+var profiles = scan_1.default();
 var profile = profileSelector(profiles, options.profile) || {};
 writer_1.default(profile.str);
 logger_1.default("active profile = " + profile.name);
