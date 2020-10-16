@@ -3,13 +3,6 @@ import logger from './modules/logger'
 import scan from './modules/scan';
 import writer from './modules/writer';
 import { getOptions, initializeOptions } from './modules/options';
-
-// get command line args
-const args = process.argv.splice(2);
-initializeOptions(args)
-const options = getOptions()
-const profiles = scan();
-
 function profileSelector(profiles, profile) {
     const hash = { [profile]: true }
 
@@ -18,16 +11,16 @@ function profileSelector(profiles, profile) {
 
 
     while (ref.inherit) {
-  
+
         if (hash[ref.inherit]) {
-          
+
             throw "circular inheritance detected";
         }
 
-      
+
         hash[ref.inherit] = true;
         const toRef = profiles[ref.inherit] ? profiles[ref.inherit].obj : {}
-        ref = toRef 
+        ref = toRef
         track.push(toRef);
 
     }
@@ -57,10 +50,17 @@ function profileSelector(profiles, profile) {
 
 }
 
+// get command line args
+const args = process.argv.splice(2);
+initializeOptions(args)
+const options = getOptions()
+const profiles = scan();
+
+
 const profile = profileSelector(profiles, options.profile) || {};
 
 writer(profile.str);
-logger(`active profile = ${(profile as any).name}`)
+logger(`active profile = ${profile.name}`)
 
 
 
