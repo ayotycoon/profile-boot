@@ -30,8 +30,8 @@ Sample profile
 ### Usage
 To use this library, you have to execute just three steps 
 1. have at least one profile 
-2. run `npx profile-boot` with the necessary options. the `profile` option is important
-3. depending on your setup, you can get the active profile by using any of the following
+2. run `npx profile-boot` with the necessary options. the `profile` option is important, then you start your application. e.g `npx profile-boot -profile local && node server.js`. 
+6. depending on your setup, you can get the active profile by using any of the following
 
 
 
@@ -83,4 +83,19 @@ npx profile-boot -profile local -showLogs true
 
 }
 
+```
+
+You can use this for your angular and react projects *( basically any project that is either node , or bundled on the browser with babel )*, just call `profile-boot` before you start and build your application. Then proceed to `imoprt {activeProfile}` in your application. e.g
+
+### package.json
+```json
+   
+    { ...
+		
+		"scripts": {
+    
+    "build": "npx profile-boot -profile heroku && react-scripts build",
+	"start": "npx profile-boot -profile heroku && react-scripts start",
+	 "start-dev": "npx profile-boot -profile local && react-scripts start"
+  }}
 ```
