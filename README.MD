@@ -1,6 +1,6 @@
 # profile-boot!
 
-Enables the use of **profiles** in node environments
+Enables **profiles** in node js environments and on the browser when bundled with babel or typescript compiler
 
 ## Whats the goal?
 
@@ -85,7 +85,7 @@ npx profile-boot -profile local -showLogs true
 
 ```
 
-You can use this for your angular and react projects *( basically any project that is either node , or bundled on the browser with babel )*, just call `profile-boot` before you start and build your application. Then proceed to `imoprt {activeProfile}` in your application. e.g
+Sample usage for your angular and react projects , just call `npx profile-boot` before you start and build your application. Then proceed to `import {activeProfile}` in your application. e.g
 
 ### package.json
 ```json
