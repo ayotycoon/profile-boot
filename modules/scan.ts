@@ -6,7 +6,7 @@ const modifyAble = { 'json': true }
 
 const scan = (dir = path.resolve(__dirname, '../../../profiles')) => {
     try {
-        logger(`scanning directory ${dir}`)
+        logger(`Scanning directory ${dir}`)
         const profiles = {}
         const _dirs = readdirSync(dir);
         _dirs.forEach(_dir => {

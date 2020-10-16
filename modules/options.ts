@@ -1,15 +1,15 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync} from 'fs';
 import * as  path from 'path';
 import logger from './logger';
 
 
 let optionsStr = '';
-const profileBootJson = path.resolve(__dirname, '../../../profile-boot.json')
+const profileBootJsonPath = path.resolve(__dirname, '../../../profile-boot.json')
 try {
-    optionsStr = readFileSync(profileBootJson, { encoding: 'utf-8' })
+    optionsStr = readFileSync(profileBootJsonPath, { encoding: 'utf-8' })
 
 } catch (error) {
-
+    logger(`Could not find profile-boot.json in your project path ${profileBootJsonPath} -- Using sensible defaults`,  true)
 }
 
 
@@ -30,13 +30,6 @@ export const initializeOptions = (args?) => {
     }
 
 
-
-    if (options.setFileProfile && options.setFileProfile !== options.profile) {
-        options.profile = options.setFileProfile;
-        delete options.setFileProfile
-        writeFileSync(profileBootJson, JSON.stringify(options))
-
-    }
 
 }
 export const getOptions = ()=> {

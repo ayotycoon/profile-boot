@@ -36,7 +36,7 @@ export default  (str: string)  => {
 
             writeFileSync(fullPath, toWrite)
         } catch (error) {
-            logger('could not write to ' + fullPath)
+            logger('could not write to ' + fullPath,true)
 
         }
 

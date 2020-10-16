@@ -1,6 +1,6 @@
 {
   "name": "profile-boot",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "keywords": [
     "profile",
     "ayotycoon"
@@ -10,7 +10,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index",
-    "build": "tsc"
+    "build": "node misc/build.js && tsc",
+    "build:publish":"npm run build && npm publish"
+
   },
   "author": "ayotycoon",
   "license": "MIT",

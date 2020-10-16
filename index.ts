@@ -7,14 +7,10 @@ export function getActiveProfile() {
     return profileJson;
 }
 const p = getActiveProfile();
-type P = typeof p;
-interface ActiveProfile extends P {
-    profile: string
 
-}
-// @ts-ignore
-export const activeProfile: ActiveProfile = p;
-logger(`active profile = ${(activeProfile as any).profile}`)
+
+export const activeProfile: any = p;
+logger(`active profile = ${activeProfile.profile}`)
 logger({ activeProfile })
 
 export default {
